@@ -1,5 +1,8 @@
 package springmvc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Controller
 public class DeveloperController {
@@ -16,6 +20,20 @@ public class DeveloperController {
 	
 	@Autowired
 	SkillRepository skillRepository;
+	
+	@Autowired
+	TabelaTestowaRepository tabelaTestowaRepository;
+	
+	@RequestMapping(value="/pages")
+	public String tabelaTestowa(Model model ){
+		List<String> columnList = new ArrayList<String>();
+		columnList.add("kolumna1");
+		columnList.add("kolumna2");
+		columnList.add("kolumna3");
+		columnList.add("kolumna4");
+		model.addAttribute("columns", columnList);
+		return "tablaTestowa";
+	}
 	
 	@RequestMapping("/developer/{id}")
 	public String developer(@PathVariable Long id, Model model) {
